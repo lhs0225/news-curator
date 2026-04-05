@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- HTMX가 교체할 뉴스 그리드 Fragment -->
+<div th:fragment="news-grid" id="news-grid">
+
+    <div th:if="${#lists.isEmpty(newsList)}" class="archive-empty">
+        <span class="empty-icon">🦌</span>
+        아직 사냥된 뉴스가 없습니다<br>
+        <span style="font-size:0.9rem; opacity:0.7;">위의 의식을 통해 첫 번째 지식을 소환하세요</span>
+    </div>
+
+    <div class="news-grid" th:unless="${#lists.isEmpty(newsList)}">
+        <article class="news-card" th:each="news : ${newsList}">
+            <div class="card-body">
+                <span class="card-category"
+                      th:if="${news.category}"
+                      th:text="${news.category}">카테고리</span>
+                <h3 class="card-title" th:text="${news.title}">뉴스 제목</h3>
+                <p class="card-summary" th:text="${news.summary}">AI 요약 내용이 여기에 표시됩니다.</p>
+            </div>
+            <div class="card-meta">
+                <span class="card-source"
+                      th:if="${news.source}"
+                      th:text="${news.source}">출처</span>
+                <span class="card-source"
+                      th:unless="${news.source}">Unknown</span>
+                <a class="card-link"
+                   th:if="${news.originalUrl}"
+                   th:href="${news.originalUrl}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    원문 사냥 <span class="arrow">→</span>
+                </a>
+            </div>
+        </article>
+    </div>
+
+</div>
+
+</body>
+</html>

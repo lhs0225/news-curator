@@ -22,13 +22,29 @@ public class NewsController {
         return "index";
     }
 
+    // HTMX: 폼 제출 → fragment만 반환
     @PostMapping("/news/add")
     public String addNews(@RequestParam String title,
                           @RequestParam(required = false) String originalUrl,
                           @RequestParam(required = false) String source,
-                          @RequestParam(required = false) String category) {
-        String summary = newsService.summarize(title);
+                          @RequestParam(required = false) String category,
+                          @RequestParam(required = false) String _htmx,
+                          Model model) {
+        String summary = newsService.summarize(title, originalUrl);
         newsService.saveNews(title, summary, originalUrl, source, category);
-        return "redirect:/";
+        model.addAttribute("newsList", newsService.findAll());
+        return "fragments/news-grid :: news-grid";
+    }
+
+    // HTMX: 카테고리 필터링 → fragment 반환
+    @GetMapping("/news/filter")
+    public String filterNews(@RequestParam(required = false) String category,
+                             Model model) {
+        if (category == null || category.isBlank()) {
+            model.addAttribute("newsList", newsService.findAll());
+        } else {
+            model.addAttribute("newsList", newsService.findByCategory(category));
+        }
+        return "fragments/news-grid :: news-grid";
     }
 }

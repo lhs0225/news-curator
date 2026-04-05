@@ -1,4 +1,13 @@
-HELP.md
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+hs_err_pid*
+replay_pid*
+
+### Gradle ###
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -36,5 +45,17 @@ out/
 ### VS Code ###
 .vscode/
 
-### Local config ###
+### OS ###
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+### Secrets & Local Config ###
 **/application-local.properties
+*.env
+.env.*
+!.env.example
+
+### Logs ###
+*.log
+logs/

@@ -28,15 +28,22 @@ public class NewsService {
                 .content();
     }
 
-    public News saveNews(String title, String summary, String originalUrl) {
+    public News saveNews(String title, String summary, String originalUrl,
+                         String source, String category) {
         var news = new News();
         news.setTitle(title);
         news.setSummary(summary);
         news.setOriginalUrl(originalUrl);
+        news.setSource(source);
+        news.setCategory(category);
         return newsRepository.save(news);
     }
 
     public List<News> findAll() {
-        return newsRepository.findAll();
+        return newsRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    public List<News> findByCategory(String category) {
+        return newsRepository.findByCategory(category);
     }
 }

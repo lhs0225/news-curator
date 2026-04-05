@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"ls \\\"C:/Program Files/Eclipse Adoptium/\\\" 2>/dev/null && java -version 2>&1\",\"description\":\"Check exact Adoptium path and java version\"}",
-  "error": "Exit code 2",
-  "timestamp": "2026-04-05T07:06:49.312Z",
-  "retry_count": 1
-}

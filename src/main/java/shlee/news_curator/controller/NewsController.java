@@ -24,9 +24,11 @@ public class NewsController {
 
     @PostMapping("/news/add")
     public String addNews(@RequestParam String title,
-                          @RequestParam(required = false) String originalUrl) {
+                          @RequestParam(required = false) String originalUrl,
+                          @RequestParam(required = false) String source,
+                          @RequestParam(required = false) String category) {
         String summary = newsService.summarize(title);
-        newsService.saveNews(title, summary, originalUrl);
+        newsService.saveNews(title, summary, originalUrl, source, category);
         return "redirect:/";
     }
 }
